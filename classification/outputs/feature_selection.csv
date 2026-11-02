@@ -1,0 +1,33 @@
+﻿source_column,decision,reason
+FL_DATE,dipakai,Metadata split waktu; diturunkan menjadi MONTH dan DAY_OF_WEEK.
+AIRLINE,tidak dipakai,Label/identitas tambahan; baseline menggunakan kode maskapai dan bandara.
+AIRLINE_DOT,tidak dipakai,Label/identitas tambahan; baseline menggunakan kode maskapai dan bandara.
+AIRLINE_CODE,dipakai,Identitas maskapai; gunakan satu representasi identitas untuk baseline.
+DOT_CODE,tidak dipakai,Label/identitas tambahan; baseline menggunakan kode maskapai dan bandara.
+FL_NUMBER,ditunda,Nomor penerbangan dapat diuji setelah baseline; jangan diperlakukan sebagai besaran kontinu.
+ORIGIN,dipakai,Bandara asal yang tercantum pada jadwal.
+ORIGIN_CITY,tidak dipakai,Label/identitas tambahan; baseline menggunakan kode maskapai dan bandara.
+DEST,dipakai,Bandara tujuan yang tercantum pada jadwal.
+DEST_CITY,tidak dipakai,Label/identitas tambahan; baseline menggunakan kode maskapai dan bandara.
+CRS_DEP_TIME,dipakai,Jadwal keberangkatan HHMM; diubah menjadi menit sejak tengah malam lokal.
+DEP_TIME,tidak dipakai,Informasi setelah kejadian atau belum disetujui untuk fitur pra-keberangkatan.
+DEP_DELAY,pendukung,Pembentuk target DELAYED_15 dengan ambang >=15 menit; bukan fitur model.
+TAXI_OUT,tidak dipakai,Informasi setelah kejadian atau belum disetujui untuk fitur pra-keberangkatan.
+WHEELS_OFF,tidak dipakai,Informasi setelah kejadian atau belum disetujui untuk fitur pra-keberangkatan.
+WHEELS_ON,tidak dipakai,Informasi setelah kejadian atau belum disetujui untuk fitur pra-keberangkatan.
+TAXI_IN,tidak dipakai,Informasi setelah kejadian atau belum disetujui untuk fitur pra-keberangkatan.
+CRS_ARR_TIME,dipakai,Jadwal kedatangan HHMM; diubah menjadi menit sejak tengah malam lokal.
+ARR_TIME,tidak dipakai,Informasi setelah kejadian atau belum disetujui untuk fitur pra-keberangkatan.
+ARR_DELAY,tidak dipakai,Informasi setelah kejadian atau belum disetujui untuk fitur pra-keberangkatan.
+CANCELLED,pendukung,Filter populasi: hanya nilai 0 yang digunakan; bukan fitur model.
+CANCELLATION_CODE,tidak dipakai,Informasi setelah kejadian atau belum disetujui untuk fitur pra-keberangkatan.
+DIVERTED,tidak dipakai,Informasi setelah kejadian atau belum disetujui untuk fitur pra-keberangkatan.
+CRS_ELAPSED_TIME,dipakai,Durasi perjalanan terjadwal dalam menit.
+ELAPSED_TIME,tidak dipakai,Informasi setelah kejadian atau belum disetujui untuk fitur pra-keberangkatan.
+AIR_TIME,tidak dipakai,Informasi setelah kejadian atau belum disetujui untuk fitur pra-keberangkatan.
+DISTANCE,dipakai,Jarak rute dalam mil.
+DELAY_DUE_CARRIER,tidak dipakai,Informasi setelah kejadian atau belum disetujui untuk fitur pra-keberangkatan.
+DELAY_DUE_WEATHER,tidak dipakai,Informasi setelah kejadian atau belum disetujui untuk fitur pra-keberangkatan.
+DELAY_DUE_NAS,tidak dipakai,Informasi setelah kejadian atau belum disetujui untuk fitur pra-keberangkatan.
+DELAY_DUE_SECURITY,tidak dipakai,Informasi setelah kejadian atau belum disetujui untuk fitur pra-keberangkatan.
+DELAY_DUE_LATE_AIRCRAFT,tidak dipakai,Informasi setelah kejadian atau belum disetujui untuk fitur pra-keberangkatan.

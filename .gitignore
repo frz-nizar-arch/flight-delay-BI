@@ -1,0 +1,6 @@
+# Exclude a specific file
+flights_sample_3m.csv
+
+# Exclude a file in a specific subdirectory
+classification/datasets/
+classification/artifacts/

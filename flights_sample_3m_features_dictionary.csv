@@ -1,0 +1,31 @@
+Updated Header,Source Header,Data Type,Description
+FL_DATE,FlightDate,object,Flight Date (yyyymmdd)
+AIRLINE_CODE,Reporting_Airline,object,"Unique Carrier Code. When the same code has been used by multiple carriers, a numeric suffix is used for earlier users, for example, PA, PA(1), PA(2). Use this field for analysis across a range of years."
+DOT_CODE,DOT_ID_Reporting_Airline,int64,"An identification number assigned by US DOT to identify a unique airline (carrier). A unique airline (carrier) is defined as one holding and reporting under the same DOT certificate regardless of its Code, Name, or holding company/corporation."
+FL_NUMBER,Flight_Number_Reporting_Airline,int64,Flight Number
+ORIGIN,Origin,object,Origin Airport
+ORIGIN_CITY,OriginCityName,object,"Origin Airport, City Name"
+DEST,Dest,object,Destination Airport
+DEST_CITY,DestCityName,object,"Destination Airport, City Name"
+CRS_DEP_TIME,CRSDepTime,int64,CRS Departure Time (local time: hhmm)
+DEP_TIME,DepTime,float64,Actual Departure Time (local time: hhmm)
+DEP_DELAY,DepDelay,float64,"Difference in minutes between scheduled and actual departure time. Early departures show negative numbers."
+TAXI_OUT,TaxiOut,float64,"Taxi Out Time, in Minutes"
+WHEELS_OFF,WheelsOff,float64,Wheels Off Time (local time: hhmm)
+WHEELS_ON,WheelsOn,float64,Wheels On Time (local time: hhmm)
+TAXI_IN,TaxiIn,float64,"Taxi In Time, in Minutes"
+CRS_ARR_TIME,CRSArrTime,int64,CRS Arrival Time (local time: hhmm)
+ARR_TIME,ArrTime,float64,Actual Arrival Time (local time: hhmm)
+ARR_DELAY,ArrDelay,float64,"Difference in minutes between scheduled and actual arrival time. Early arrivals show negative numbers."
+CANCELLED,Cancelled,float64,Cancelled Flight Indicator (1=Yes)
+CANCELLATION_CODE,CancellationCode,object,Specifies The Reason For Cancellation
+DIVERTED,Diverted,float64,Diverted Flight Indicator (1=Yes)
+CRS_ELAPSED_TIME,CRSElapsedTime,float64,"CRS Elapsed Time of Flight, in Minutes"
+ELAPSED_TIME,ActualElapsedTime,float64,"Elapsed Time of Flight, in Minutes"
+AIR_TIME,AirTime,float64,"Flight Time, in Minutes"
+DISTANCE,Distance,float64,Distance between airports (miles)
+DELAY_DUE_CARRIER,CarrierDelay,float64,"Carrier Delay, in Minutes"
+DELAY_DUE_WEATHER,WeatherDelay,float64,"Weather Delay, in Minutes"
+DELAY_DUE_NAS,NASDelay,float64,"National Air System Delay, in Minutes"
+DELAY_DUE_SECURITY,SecurityDelay,float64,"Security Delay, in Minutes"
+DELAY_DUE_LATE_AIRCRAFT,LateAircraftDelay,float64,"Late Aircraft Delay, in Minutes"

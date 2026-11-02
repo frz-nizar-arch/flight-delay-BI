@@ -1,0 +1,746 @@
+{
+  "counts": {
+    "rows": 3000000,
+    "invalid_dates": 0,
+    "date_order_inversions": 1499403,
+    "CRS_ELAPSED_TIME_under_10": 1,
+    "cancelled": 79140,
+    "diverted": 7056,
+    "delay_eligible": 2920860,
+    "delayed_15m": 531033,
+    "eligible_diverted": 7056,
+    "noncancelled_missing_dep_delay": 0,
+    "cancelled_with_dep_delay": 1496,
+    "negative_dep_delay": 1787569,
+    "noncancelled_with_cancellation_code": 0,
+    "cancelled_without_cancellation_code": 0,
+    "causes_partial_missing": 0,
+    "arr_delay_ge15_causes_missing": 0,
+    "arr_delay_lt15_causes_present": 0,
+    "CRS_DEP_TIME_2400": 0,
+    "CRS_DEP_TIME_invalid_hhmm_except_2400": 0,
+    "DEP_TIME_2400": 242,
+    "DEP_TIME_invalid_hhmm_except_2400": 0,
+    "WHEELS_OFF_2400": 401,
+    "WHEELS_OFF_invalid_hhmm_except_2400": 0,
+    "WHEELS_ON_2400": 1109,
+    "WHEELS_ON_invalid_hhmm_except_2400": 0,
+    "CRS_ARR_TIME_2400": 14,
+    "CRS_ARR_TIME_invalid_hhmm_except_2400": 0,
+    "ARR_TIME_2400": 1416,
+    "ARR_TIME_invalid_hhmm_except_2400": 0,
+    "DISTANCE_nonpositive": 0,
+    "CRS_ELAPSED_TIME_nonpositive": 0,
+    "ELAPSED_TIME_nonpositive": 0,
+    "AIR_TIME_nonpositive": 0,
+    "full_row_hash_duplicate_candidates": 0,
+    "flight_key_hash_duplicate_candidates": 0
+  },
+  "columns": [
+    "FL_DATE",
+    "AIRLINE",
+    "AIRLINE_DOT",
+    "AIRLINE_CODE",
+    "DOT_CODE",
+    "FL_NUMBER",
+    "ORIGIN",
+    "ORIGIN_CITY",
+    "DEST",
+    "DEST_CITY",
+    "CRS_DEP_TIME",
+    "DEP_TIME",
+    "DEP_DELAY",
+    "TAXI_OUT",
+    "WHEELS_OFF",
+    "WHEELS_ON",
+    "TAXI_IN",
+    "CRS_ARR_TIME",
+    "ARR_TIME",
+    "ARR_DELAY",
+    "CANCELLED",
+    "CANCELLATION_CODE",
+    "DIVERTED",
+    "CRS_ELAPSED_TIME",
+    "ELAPSED_TIME",
+    "AIR_TIME",
+    "DISTANCE",
+    "DELAY_DUE_CARRIER",
+    "DELAY_DUE_WEATHER",
+    "DELAY_DUE_NAS",
+    "DELAY_DUE_SECURITY",
+    "DELAY_DUE_LATE_AIRCRAFT"
+  ],
+  "dictionary_columns": [
+    "FL_DATE",
+    "AIRLINE_CODE",
+    "DOT_CODE",
+    "FL_NUMBER",
+    "ORIGIN",
+    "ORIGIN_CITY",
+    "DEST",
+    "DEST_CITY",
+    "CRS_DEP_TIME",
+    "DEP_TIME",
+    "DEP_DELAY",
+    "TAXI_OUT",
+    "WHEELS_OFF",
+    "WHEELS_ON",
+    "TAXI_IN",
+    "CRS_ARR_TIME",
+    "ARR_TIME",
+    "ARR_DELAY",
+    "CANCELLED",
+    "CANCELLATION_CODE",
+    "DIVERTED",
+    "CRS_ELAPSED_TIME",
+    "ELAPSED_TIME",
+    "AIR_TIME",
+    "DISTANCE",
+    "DELAY_DUE_CARRIER",
+    "DELAY_DUE_WEATHER",
+    "DELAY_DUE_NAS",
+    "DELAY_DUE_SECURITY",
+    "DELAY_DUE_LATE_AIRCRAFT"
+  ],
+  "dataset_not_in_dictionary": [
+    "AIRLINE",
+    "AIRLINE_DOT"
+  ],
+  "dictionary_not_in_dataset": [],
+  "plan_columns_not_in_dataset": [],
+  "observed_dtypes": {
+    "FL_DATE": [
+      "object"
+    ],
+    "AIRLINE": [
+      "object"
+    ],
+    "AIRLINE_DOT": [
+      "object"
+    ],
+    "AIRLINE_CODE": [
+      "object"
+    ],
+    "DOT_CODE": [
+      "int64"
+    ],
+    "FL_NUMBER": [
+      "int64"
+    ],
+    "ORIGIN": [
+      "object"
+    ],
+    "ORIGIN_CITY": [
+      "object"
+    ],
+    "DEST": [
+      "object"
+    ],
+    "DEST_CITY": [
+      "object"
+    ],
+    "CRS_DEP_TIME": [
+      "int64"
+    ],
+    "DEP_TIME": [
+      "float64"
+    ],
+    "DEP_DELAY": [
+      "float64"
+    ],
+    "TAXI_OUT": [
+      "float64"
+    ],
+    "WHEELS_OFF": [
+      "float64"
+    ],
+    "WHEELS_ON": [
+      "float64"
+    ],
+    "TAXI_IN": [
+      "float64"
+    ],
+    "CRS_ARR_TIME": [
+      "int64"
+    ],
+    "ARR_TIME": [
+      "float64"
+    ],
+    "ARR_DELAY": [
+      "float64"
+    ],
+    "CANCELLED": [
+      "float64"
+    ],
+    "CANCELLATION_CODE": [
+      "object"
+    ],
+    "DIVERTED": [
+      "float64"
+    ],
+    "CRS_ELAPSED_TIME": [
+      "float64"
+    ],
+    "ELAPSED_TIME": [
+      "float64"
+    ],
+    "AIR_TIME": [
+      "float64"
+    ],
+    "DISTANCE": [
+      "float64"
+    ],
+    "DELAY_DUE_CARRIER": [
+      "float64"
+    ],
+    "DELAY_DUE_WEATHER": [
+      "float64"
+    ],
+    "DELAY_DUE_NAS": [
+      "float64"
+    ],
+    "DELAY_DUE_SECURITY": [
+      "float64"
+    ],
+    "DELAY_DUE_LATE_AIRCRAFT": [
+      "float64"
+    ]
+  },
+  "dictionary_dtype_mismatches": {},
+  "missing": {
+    "FL_DATE": 0,
+    "AIRLINE": 0,
+    "AIRLINE_DOT": 0,
+    "AIRLINE_CODE": 0,
+    "DOT_CODE": 0,
+    "FL_NUMBER": 0,
+    "ORIGIN": 0,
+    "ORIGIN_CITY": 0,
+    "DEST": 0,
+    "DEST_CITY": 0,
+    "CRS_DEP_TIME": 0,
+    "DEP_TIME": 77615,
+    "DEP_DELAY": 77644,
+    "TAXI_OUT": 78806,
+    "WHEELS_OFF": 78806,
+    "WHEELS_ON": 79944,
+    "TAXI_IN": 79944,
+    "CRS_ARR_TIME": 0,
+    "ARR_TIME": 79942,
+    "ARR_DELAY": 86198,
+    "CANCELLED": 0,
+    "CANCELLATION_CODE": 2920860,
+    "DIVERTED": 0,
+    "CRS_ELAPSED_TIME": 14,
+    "ELAPSED_TIME": 86198,
+    "AIR_TIME": 86198,
+    "DISTANCE": 0,
+    "DELAY_DUE_CARRIER": 2466137,
+    "DELAY_DUE_WEATHER": 2466137,
+    "DELAY_DUE_NAS": 2466137,
+    "DELAY_DUE_SECURITY": 2466137,
+    "DELAY_DUE_LATE_AIRCRAFT": 2466137
+  },
+  "ranges": {
+    "DOT_CODE": [
+      19393.0,
+      20452.0
+    ],
+    "FL_NUMBER": [
+      1.0,
+      9562.0
+    ],
+    "CRS_DEP_TIME": [
+      1.0,
+      2359.0
+    ],
+    "DEP_TIME": [
+      1.0,
+      2400.0
+    ],
+    "DEP_DELAY": [
+      -90.0,
+      2966.0
+    ],
+    "TAXI_OUT": [
+      1.0,
+      184.0
+    ],
+    "WHEELS_OFF": [
+      1.0,
+      2400.0
+    ],
+    "WHEELS_ON": [
+      1.0,
+      2400.0
+    ],
+    "TAXI_IN": [
+      1.0,
+      249.0
+    ],
+    "CRS_ARR_TIME": [
+      1.0,
+      2400.0
+    ],
+    "ARR_TIME": [
+      1.0,
+      2400.0
+    ],
+    "ARR_DELAY": [
+      -96.0,
+      2934.0
+    ],
+    "CANCELLED": [
+      0.0,
+      1.0
+    ],
+    "DIVERTED": [
+      0.0,
+      1.0
+    ],
+    "CRS_ELAPSED_TIME": [
+      1.0,
+      705.0
+    ],
+    "ELAPSED_TIME": [
+      15.0,
+      739.0
+    ],
+    "AIR_TIME": [
+      8.0,
+      692.0
+    ],
+    "DISTANCE": [
+      29.0,
+      5812.0
+    ],
+    "DELAY_DUE_CARRIER": [
+      0.0,
+      2934.0
+    ],
+    "DELAY_DUE_WEATHER": [
+      0.0,
+      1653.0
+    ],
+    "DELAY_DUE_NAS": [
+      0.0,
+      1741.0
+    ],
+    "DELAY_DUE_SECURITY": [
+      0.0,
+      1185.0
+    ],
+    "DELAY_DUE_LATE_AIRCRAFT": [
+      0.0,
+      2557.0
+    ]
+  },
+  "values": {
+    "CANCELLED": {
+      "0.0": 2920860,
+      "1.0": 79140
+    },
+    "DIVERTED": {
+      "0.0": 2992944,
+      "1.0": 7056
+    },
+    "CANCELLATION_CODE": {
+      "nan": 2920860,
+      "B": 28772,
+      "D": 24417,
+      "A": 19476,
+      "C": 6475
+    }
+  },
+  "groups": {
+    "cancelled": {
+      "rows": 79140,
+      "DEP_DELAY_missing": 77644,
+      "ARR_DELAY_missing": 79140,
+      "DEP_TIME_missing": 77615,
+      "AIR_TIME_missing": 79140,
+      "CRS_ELAPSED_TIME_missing": 14
+    },
+    "diverted_not_cancelled": {
+      "rows": 7056,
+      "DEP_DELAY_missing": 0,
+      "ARR_DELAY_missing": 7056,
+      "DEP_TIME_missing": 0,
+      "AIR_TIME_missing": 7056,
+      "CRS_ELAPSED_TIME_missing": 0
+    },
+    "normal": {
+      "rows": 2913804,
+      "DEP_DELAY_missing": 0,
+      "ARR_DELAY_missing": 2,
+      "DEP_TIME_missing": 0,
+      "AIR_TIME_missing": 2,
+      "CRS_ELAPSED_TIME_missing": 0
+    }
+  },
+  "years": {
+    "2019": {
+      "rows": 757673,
+      "cancelled": 13594,
+      "delay_eligible": 744079,
+      "delayed": 138677
+    },
+    "2022": {
+      "rows": 687860,
+      "cancelled": 18448,
+      "delay_eligible": 669412,
+      "delayed": 142683
+    },
+    "2023": {
+      "rows": 463484,
+      "cancelled": 7809,
+      "delay_eligible": 455675,
+      "delayed": 103956
+    },
+    "2020": {
+      "rows": 479350,
+      "cancelled": 28757,
+      "delay_eligible": 450593,
+      "delayed": 40939
+    },
+    "2021": {
+      "rows": 611633,
+      "cancelled": 10532,
+      "delay_eligible": 601101,
+      "delayed": 104778
+    }
+  },
+  "cancellation_by_year_code": {
+    "2019:A": 3836,
+    "2019:B": 7309,
+    "2019:C": 2449,
+    "2020:A": 1924,
+    "2020:B": 2142,
+    "2020:C": 470,
+    "2020:D": 24221,
+    "2021:A": 4252,
+    "2021:B": 5428,
+    "2021:C": 784,
+    "2021:D": 68,
+    "2022:A": 7252,
+    "2022:B": 9507,
+    "2022:C": 1588,
+    "2022:D": 101,
+    "2023:A": 2212,
+    "2023:B": 4386,
+    "2023:C": 1184,
+    "2023:D": 27
+  },
+  "noncancelled_dep_delay_quantiles": {
+    "0.0": -90.0,
+    "0.01": -14.0,
+    "0.5": -2.0,
+    "0.9": 36.0,
+    "0.95": 72.0,
+    "0.99": 191.0,
+    "0.999": 652.0,
+    "1.0": 2966.0
+  },
+  "dates": {
+    "min": "2019-01-01",
+    "max": "2023-08-31",
+    "observed_days": 1704,
+    "missing_calendar_days": 0,
+    "daily_sample_rows_quantiles": {
+      "0.0": 521.0,
+      "0.25": 1606.25,
+      "0.5": 1892.0,
+      "0.75": 2017.25,
+      "1.0": 2379.0
+    }
+  },
+  "airline_mappings": [
+    [
+      "9E",
+      20363,
+      "Endeavor Air Inc.",
+      "Endeavor Air Inc.: 9E"
+    ],
+    [
+      "AA",
+      19805,
+      "American Airlines Inc.",
+      "American Airlines Inc.: AA"
+    ],
+    [
+      "AS",
+      19930,
+      "Alaska Airlines Inc.",
+      "Alaska Airlines Inc.: AS"
+    ],
+    [
+      "B6",
+      20409,
+      "JetBlue Airways",
+      "JetBlue Airways: B6"
+    ],
+    [
+      "DL",
+      19790,
+      "Delta Air Lines Inc.",
+      "Delta Air Lines Inc.: DL"
+    ],
+    [
+      "EV",
+      20366,
+      "ExpressJet Airlines LLC d/b/a aha!",
+      "ExpressJet Airlines LLC d/b/a aha!: EV"
+    ],
+    [
+      "F9",
+      20436,
+      "Frontier Airlines Inc.",
+      "Frontier Airlines Inc.: F9"
+    ],
+    [
+      "G4",
+      20368,
+      "Allegiant Air",
+      "Allegiant Air: G4"
+    ],
+    [
+      "HA",
+      19690,
+      "Hawaiian Airlines Inc.",
+      "Hawaiian Airlines Inc.: HA"
+    ],
+    [
+      "MQ",
+      20398,
+      "Envoy Air",
+      "Envoy Air: MQ"
+    ],
+    [
+      "NK",
+      20416,
+      "Spirit Air Lines",
+      "Spirit Air Lines: NK"
+    ],
+    [
+      "OH",
+      20397,
+      "PSA Airlines Inc.",
+      "PSA Airlines Inc.: OH"
+    ],
+    [
+      "OO",
+      20304,
+      "SkyWest Airlines Inc.",
+      "SkyWest Airlines Inc.: OO"
+    ],
+    [
+      "QX",
+      19687,
+      "Horizon Air",
+      "Horizon Air: QX"
+    ],
+    [
+      "UA",
+      19977,
+      "United Air Lines Inc.",
+      "United Air Lines Inc.: UA"
+    ],
+    [
+      "WN",
+      19393,
+      "Southwest Airlines Co.",
+      "Southwest Airlines Co.: WN"
+    ],
+    [
+      "YV",
+      20378,
+      "Mesa Airlines Inc.",
+      "Mesa Airlines Inc.: YV"
+    ],
+    [
+      "YX",
+      20452,
+      "Republic Airline",
+      "Republic Airline: YX"
+    ]
+  ],
+  "origin_count": 380,
+  "destination_count": 380,
+  "route_count": 7785,
+  "airport_day": {
+    "observed_pairs": 338264,
+    "rows_quantiles": {
+      "0.0": 1.0,
+      "0.25": 1.0,
+      "0.5": 3.0,
+      "0.75": 8.0,
+      "0.9": 26.0,
+      "1.0": 150.0
+    },
+    "pairs_under_10_rows": 261492,
+    "pairs_zero_eligible": 4239,
+    "airports_full_calendar": 37,
+    "top20": [
+      {
+        "origin": "ATL",
+        "rows": 153556,
+        "days": 1704,
+        "eligible_days": 1704,
+        "coverage": 1.0,
+        "mean_rows_per_observed_day": 90.1150234741784
+      },
+      {
+        "origin": "DFW",
+        "rows": 130334,
+        "days": 1704,
+        "eligible_days": 1704,
+        "coverage": 1.0,
+        "mean_rows_per_observed_day": 76.48708920187794
+      },
+      {
+        "origin": "ORD",
+        "rows": 122296,
+        "days": 1704,
+        "eligible_days": 1704,
+        "coverage": 1.0,
+        "mean_rows_per_observed_day": 71.7699530516432
+      },
+      {
+        "origin": "DEN",
+        "rows": 119919,
+        "days": 1704,
+        "eligible_days": 1703,
+        "coverage": 1.0,
+        "mean_rows_per_observed_day": 70.375
+      },
+      {
+        "origin": "CLT",
+        "rows": 94304,
+        "days": 1704,
+        "eligible_days": 1704,
+        "coverage": 1.0,
+        "mean_rows_per_observed_day": 55.34272300469483
+      },
+      {
+        "origin": "LAX",
+        "rows": 85872,
+        "days": 1704,
+        "eligible_days": 1704,
+        "coverage": 1.0,
+        "mean_rows_per_observed_day": 50.394366197183096
+      },
+      {
+        "origin": "PHX",
+        "rows": 74815,
+        "days": 1704,
+        "eligible_days": 1704,
+        "coverage": 1.0,
+        "mean_rows_per_observed_day": 43.90551643192488
+      },
+      {
+        "origin": "LAS",
+        "rows": 73470,
+        "days": 1704,
+        "eligible_days": 1704,
+        "coverage": 1.0,
+        "mean_rows_per_observed_day": 43.11619718309859
+      },
+      {
+        "origin": "SEA",
+        "rows": 70906,
+        "days": 1704,
+        "eligible_days": 1704,
+        "coverage": 1.0,
+        "mean_rows_per_observed_day": 41.61150234741784
+      },
+      {
+        "origin": "MCO",
+        "rows": 63883,
+        "days": 1704,
+        "eligible_days": 1701,
+        "coverage": 1.0,
+        "mean_rows_per_observed_day": 37.4900234741784
+      },
+      {
+        "origin": "LGA",
+        "rows": 62574,
+        "days": 1702,
+        "eligible_days": 1694,
+        "coverage": 0.9988262910798122,
+        "mean_rows_per_observed_day": 36.76498237367802
+      },
+      {
+        "origin": "IAH",
+        "rows": 62542,
+        "days": 1704,
+        "eligible_days": 1702,
+        "coverage": 1.0,
+        "mean_rows_per_observed_day": 36.70305164319249
+      },
+      {
+        "origin": "DTW",
+        "rows": 62279,
+        "days": 1704,
+        "eligible_days": 1704,
+        "coverage": 1.0,
+        "mean_rows_per_observed_day": 36.54870892018779
+      },
+      {
+        "origin": "MSP",
+        "rows": 60061,
+        "days": 1704,
+        "eligible_days": 1704,
+        "coverage": 1.0,
+        "mean_rows_per_observed_day": 35.24706572769953
+      },
+      {
+        "origin": "SFO",
+        "rows": 59531,
+        "days": 1704,
+        "eligible_days": 1704,
+        "coverage": 1.0,
+        "mean_rows_per_observed_day": 34.93603286384977
+      },
+      {
+        "origin": "BOS",
+        "rows": 55394,
+        "days": 1704,
+        "eligible_days": 1703,
+        "coverage": 1.0,
+        "mean_rows_per_observed_day": 32.50821596244131
+      },
+      {
+        "origin": "DCA",
+        "rows": 53283,
+        "days": 1703,
+        "eligible_days": 1703,
+        "coverage": 0.9994131455399061,
+        "mean_rows_per_observed_day": 31.287727539635938
+      },
+      {
+        "origin": "EWR",
+        "rows": 52989,
+        "days": 1704,
+        "eligible_days": 1701,
+        "coverage": 1.0,
+        "mean_rows_per_observed_day": 31.096830985915492
+      },
+      {
+        "origin": "SLC",
+        "rows": 52027,
+        "days": 1704,
+        "eligible_days": 1704,
+        "coverage": 1.0,
+        "mean_rows_per_observed_day": 30.532276995305164
+      },
+      {
+        "origin": "JFK",
+        "rows": 50466,
+        "days": 1704,
+        "eligible_days": 1703,
+        "coverage": 1.0,
+        "mean_rows_per_observed_day": 29.616197183098592
+      }
+    ]
+  }
+}

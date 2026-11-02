@@ -1,0 +1,150 @@
+{
+  "created_utc": "2026-11-02T05:14:12.947587+00:00",
+  "input": {
+    "path": "D:\\Coding\\#bigdata\\flight-delay-BI\\flights_sample_3m.csv",
+    "size_bytes": 614140650,
+    "sha256": "66c338ff6c99db352ceee1af0d3e41329cf466c1c203abee52aec1dc56fe7dc4"
+  },
+  "counts": {
+    "input_rows": 3000000,
+    "excluded_invalid_cancelled": 0,
+    "excluded_cancelled": 79140,
+    "excluded_missing_or_invalid_target": 0,
+    "excluded_invalid_date": 0,
+    "excluded_outside_split_period": 0,
+    "AIRLINE_CODE_normalized": 0,
+    "ORIGIN_normalized": 0,
+    "DEST_normalized": 0,
+    "CRS_DEP_TIME_2400_normalized": 0,
+    "CRS_DEP_TIME_invalid_to_missing": 0,
+    "CRS_ARR_TIME_2400_normalized": 13,
+    "CRS_ARR_TIME_invalid_to_missing": 0,
+    "CRS_ELAPSED_TIME_invalid_to_missing": 0,
+    "DISTANCE_invalid_to_missing": 0,
+    "scheduled_duration_under_10_retained": 1,
+    "negative_delay_retained": 1787101,
+    "delay_over_24h_retained": 130,
+    "retained_rows": 2920860
+  },
+  "splits": {
+    "train": {
+      "rows": 1795773,
+      "date_min": "2019-01-01",
+      "date_max": "2021-12-31",
+      "label_0": 1511379,
+      "label_1": 284394,
+      "delay_rate_pct": 15.836856885586318,
+      "missing_before": {
+        "AIRLINE_CODE": 0,
+        "ORIGIN": 0,
+        "DEST": 0,
+        "MONTH": 0,
+        "DAY_OF_WEEK": 0,
+        "SCHEDULED_DEP_MINUTES": 0,
+        "SCHEDULED_ARR_MINUTES": 0,
+        "CRS_ELAPSED_TIME": 0,
+        "DISTANCE": 0
+      },
+      "unknown_category_rows": {
+        "AIRLINE_CODE": 0,
+        "ORIGIN": 0,
+        "DEST": 0
+      },
+      "matrix_shape": [
+        1795773,
+        790
+      ],
+      "matrix_nnz": 22922509,
+      "matrix_dtype": "float32"
+    },
+    "validation": {
+      "rows": 669412,
+      "date_min": "2022-01-01",
+      "date_max": "2022-12-31",
+      "label_0": 526729,
+      "label_1": 142683,
+      "delay_rate_pct": 21.314676163558467,
+      "missing_before": {
+        "AIRLINE_CODE": 0,
+        "ORIGIN": 0,
+        "DEST": 0,
+        "MONTH": 0,
+        "DAY_OF_WEEK": 0,
+        "SCHEDULED_DEP_MINUTES": 0,
+        "SCHEDULED_ARR_MINUTES": 0,
+        "CRS_ELAPSED_TIME": 0,
+        "DISTANCE": 0
+      },
+      "unknown_category_rows": {
+        "AIRLINE_CODE": 0,
+        "ORIGIN": 8,
+        "DEST": 15
+      },
+      "matrix_shape": [
+        669412,
+        790
+      ],
+      "matrix_nnz": 8551242,
+      "matrix_dtype": "float32"
+    },
+    "test": {
+      "rows": 455675,
+      "date_min": "2023-01-01",
+      "date_max": "2023-08-31",
+      "label_0": 351719,
+      "label_1": 103956,
+      "delay_rate_pct": 22.813628134086795,
+      "missing_before": {
+        "AIRLINE_CODE": 0,
+        "ORIGIN": 0,
+        "DEST": 0,
+        "MONTH": 0,
+        "DAY_OF_WEEK": 0,
+        "SCHEDULED_DEP_MINUTES": 0,
+        "SCHEDULED_ARR_MINUTES": 0,
+        "CRS_ELAPSED_TIME": 0,
+        "DISTANCE": 0
+      },
+      "unknown_category_rows": {
+        "AIRLINE_CODE": 0,
+        "ORIGIN": 0,
+        "DEST": 0
+      },
+      "matrix_shape": [
+        455675,
+        790
+      ],
+      "matrix_nnz": 5801377,
+      "matrix_dtype": "float32"
+    }
+  },
+  "fitted_on_train": {
+    "numeric": {
+      "CRS_ELAPSED_TIME": {
+        "median": 125.0,
+        "mean": 141.36564532376866,
+        "scale": 70.95881820105598
+      },
+      "DISTANCE": {
+        "median": 648.0,
+        "mean": 802.4031222209043,
+        "scale": 582.6894191351927
+      }
+    },
+    "category_counts": {
+      "AIRLINE_CODE": 18,
+      "ORIGIN": 379,
+      "DEST": 379
+    }
+  },
+  "elapsed_seconds": 128.96,
+  "chunk_size": 100000,
+  "versions": {
+    "python": "3.11.9",
+    "pandas": "2.3.3",
+    "numpy": "2.3.5",
+    "scikit-learn": "1.8.0",
+    "scipy": "1.17.0",
+    "joblib": "1.5.3"
+  }
+}
