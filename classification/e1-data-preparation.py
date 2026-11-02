@@ -198,7 +198,53 @@ def fingerprint(path):
     return digest.hexdigest()
 
 
-def render_report(summary, decisions):
+def head_tail_preview(matrix, labels, feature_names, metadata, positions):
+    """Hanya mendensifikasi sepuluh baris; posisi mengacu pada urutan matriks."""
+    preview = pd.DataFrame(matrix[positions].toarray(), columns=feature_names)
+    preview.insert(0, "FL_DATE", metadata.FL_DATE.to_numpy())
+    preview.insert(0, "SOURCE_ROW_NUMBER", metadata.SOURCE_ROW_NUMBER.to_numpy())
+    preview.insert(0, "DATASET_ROW", np.asarray(positions) + 1)
+    size = len(positions) // 2
+    preview.insert(0, "PREVIEW_PART", ["head"] * size + ["tail"] * size)
+    preview[TARGET] = labels[positions]
+    return preview
+
+
+def preview_positions(rows, size=5):
+    size = min(rows, size)
+    return list(range(size)) + list(range(rows - size, rows))
+
+
+def render_head_tail(previews):
+    lines = [
+        "## Head dan tail dataset setelah preprocessing dan FE", "",
+        "Head adalah 5 baris pertama dan tail adalah 5 baris terakhir dari setiap subset, mengikuti urutan dataset hasil pengolahan. Nilai fitur diambil langsung dari matriks X setelah encoding, imputasi, scaling, dan FE; label diambil dari y. Jika subset berisi kurang dari 5 baris, semua baris ditampilkan dan head/tail dapat berulang.", "",
+        "DATASET_ROW adalah posisi baris dalam subset (mulai 1). SOURCE_ROW_NUMBER dan FL_DATE hanya metadata pelacakan; DELAYED_15 adalah target, bukan fitur. Kolom one-hot diringkas sebagai daftar nama kolom bernilai 1; kolom one-hot lainnya bernilai 0. Kategori baru dapat menghasilkan seluruh nol dalam kelompoknya.", "",
+        "Untuk keterbacaan, fitur dibagi menjadi tabel identitas/encoding, scaling/indikator missing, dan fitur siklik. Prefix category__, continuous__, cyclic__, dan missing__ disingkat pada tampilan. Nilai desimal dibulatkan hingga 6 tempat hanya dalam laporan. Seluruh kolom dan nilai tanpa pembulatan tampilan tersedia di outputs/{train,validation,test}_head_tail.csv.", "",
+    ]
+    for name, preview in previews.items():
+        lines += [f"### {name.capitalize()}", ""]
+        one_hot = [c for c in preview.columns if c.startswith("category__")]
+        for part in ("head", "tail"):
+            block = preview.loc[preview.PREVIEW_PART.eq(part)]
+            lines += [f"#### {part.capitalize()} — {len(block)} baris", "",
+                      "Identitas, target, dan hasil encoding kategori:", "",
+                      markdown_table(["DATASET_ROW", "SOURCE_ROW_NUMBER", "FL_DATE", TARGET, "One-hot aktif (=1)"], [
+                          (int(row.DATASET_ROW), int(row.SOURCE_ROW_NUMBER), row.FL_DATE, int(row[TARGET]),
+                           "; ".join(c.removeprefix("category__") for c in one_hot if row[c] == 1) or "Tidak ada")
+                          for _, row in block.iterrows()
+                      ]), ""]
+            for label, prefixes in (("Hasil scaling dan indikator missing", ("continuous__", "missing__")),
+                                    ("Fitur siklik hasil FE", ("cyclic__",))):
+                columns = [c for c in preview.columns if c.startswith(prefixes)]
+                lines += [label + ":", "", markdown_table(
+                    ["DATASET_ROW"] + [c.split("__", 1)[1] for c in columns],
+                    [(int(row.DATASET_ROW), *(f"{float(row[c]):.6f}" for c in columns)) for _, row in block.iterrows()]
+                ), ""]
+    return "\n".join(lines)
+
+
+def render_report(summary, decisions, previews):
     counts, splits = summary["counts"], summary["splits"]
     fitting = summary["fitted_on_train"]
     return "\n".join([
@@ -263,6 +309,7 @@ def render_report(summary, decisions):
         f"Waktu proses: {summary['elapsed_seconds']:.1f} detik; chunk: {summary['chunk_size']:,} baris.", "",
         "Raw tidak disalin. Pembacaan awal bertahap, tetapi pengurutan dan preprocessing memuat satu subset ke RAM pada satu waktu. File sementara serta hasil lama dapat memerlukan ruang disk bersamaan saat menjalankan ulang.", "",
         "Langkah berikutnya adalah training baseline dan evaluasi. Jangan fit ulang preprocessing pada validation/test. Jika nanti menggunakan cross-validation di dalam train, preprocessing harus di-fit ulang di setiap fold dari CSV prepared, bukan memakai X yang telah di-fit pada seluruh train.", "",
+        render_head_tail(previews),
     ])
 
 
@@ -283,6 +330,7 @@ def run(source=SOURCE, base=ROOT, chunk_size=CHUNK_SIZE):
     counts = Counter()
     preprocessor = make_preprocessor()
     splits = {}
+    previews = {}
     with TemporaryDirectory(prefix=".e1-work-", dir=base) as temporary:
         stage = Path(temporary)
         prepared, ready = stage / "datasets/prepared", stage / "datasets/model-ready"
@@ -338,6 +386,9 @@ def run(source=SOURCE, base=ROOT, chunk_size=CHUNK_SIZE):
                 raise ValueError(f"Matriks fitur tidak valid pada {name}.")
             sparse.save_npz(ready / f"X_{name}.npz", matrix, compressed=True)
             np.save(ready / f"y_{name}.npy", labels, allow_pickle=False)
+            positions = preview_positions(len(frame))
+            previews[name] = head_tail_preview(matrix, labels, feature_names, frame.iloc[positions], positions)
+            previews[name].to_csv(outputs / f"{name}_head_tail.csv", index=False)
             if name == "train":
                 preview = pd.DataFrame(matrix[:10].toarray(), columns=feature_names)
                 preview.insert(0, "SOURCE_ROW_NUMBER", frame.SOURCE_ROW_NUMBER.iloc[:10].to_numpy())
@@ -381,7 +432,7 @@ def run(source=SOURCE, base=ROOT, chunk_size=CHUNK_SIZE):
         for filename, content in [("preprocessing_summary.json", summary), ("feature_contract.json", contract)]:
             (outputs / filename).write_text(json.dumps(content, indent=2, ensure_ascii=False, allow_nan=False), encoding="utf-8")
         pd.DataFrame(decisions).to_csv(outputs / "feature_selection.csv", index=False, encoding="utf-8-sig")
-        (outputs / "e1-data-preparation-report.md").write_text(render_report(summary, decisions), encoding="utf-8")
+        (outputs / "e1-data-preparation-report.md").write_text(render_report(summary, decisions, previews), encoding="utf-8")
         # Semua penghitungan/validasi selesai sebelum mengganti hasil sebelumnya.
         for path in sorted(stage.rglob("*")):
             if path.is_file():

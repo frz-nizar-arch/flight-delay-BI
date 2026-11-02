@@ -159,3 +159,209 @@ Waktu proses: 129.0 detik; chunk: 100,000 baris.
 Raw tidak disalin. Pembacaan awal bertahap, tetapi pengurutan dan preprocessing memuat satu subset ke RAM pada satu waktu. File sementara serta hasil lama dapat memerlukan ruang disk bersamaan saat menjalankan ulang.
 
 Langkah berikutnya adalah training baseline dan evaluasi. Jangan fit ulang preprocessing pada validation/test. Jika nanti menggunakan cross-validation di dalam train, preprocessing harus di-fit ulang di setiap fold dari CSV prepared, bukan memakai X yang telah di-fit pada seluruh train.
+
+## Head dan tail dataset setelah preprocessing dan FE
+
+Head adalah 5 baris pertama dan tail adalah 5 baris terakhir dari setiap subset, mengikuti urutan dataset hasil pengolahan. Nilai fitur diambil langsung dari matriks X setelah encoding, imputasi, scaling, dan FE; label diambil dari y. Jika subset berisi kurang dari 5 baris, semua baris ditampilkan dan head/tail dapat berulang.
+
+DATASET_ROW adalah posisi baris dalam subset (mulai 1). SOURCE_ROW_NUMBER dan FL_DATE hanya metadata pelacakan; DELAYED_15 adalah target, bukan fitur. Kolom one-hot diringkas sebagai daftar nama kolom bernilai 1; kolom one-hot lainnya bernilai 0. Kategori baru dapat menghasilkan seluruh nol dalam kelompoknya.
+
+Untuk keterbacaan, fitur dibagi menjadi tabel identitas/encoding, scaling/indikator missing, dan fitur siklik. Prefix category__, continuous__, cyclic__, dan missing__ disingkat pada tampilan. Nilai desimal dibulatkan hingga 6 tempat hanya dalam laporan. Seluruh kolom dan nilai tanpa pembulatan tampilan tersedia di outputs/{train,validation,test}_head_tail.csv.
+
+### Train
+
+#### Head — 5 baris
+
+Identitas, target, dan hasil encoding kategori:
+
+| DATASET_ROW | SOURCE_ROW_NUMBER | FL_DATE | DELAYED_15 | One-hot aktif (=1) |
+| --- | --- | --- | --- | --- |
+| 1 | 2052433 | 2019-01-01 | 0 | AIRLINE_CODE_UA; ORIGIN_SFO; DEST_ORD |
+| 2 | 1869934 | 2019-01-01 | 0 | AIRLINE_CODE_AA; ORIGIN_LAX; DEST_CLT |
+| 3 | 945942 | 2019-01-01 | 0 | AIRLINE_CODE_AA; ORIGIN_PHX; DEST_DCA |
+| 4 | 2113750 | 2019-01-01 | 0 | AIRLINE_CODE_NK; ORIGIN_IAG; DEST_FLL |
+| 5 | 181563 | 2019-01-01 | 0 | AIRLINE_CODE_B6; ORIGIN_BQN; DEST_MCO |
+
+Hasil scaling dan indikator missing:
+
+| DATASET_ROW | CRS_ELAPSED_TIME | DISTANCE | SCHEDULED_DEP_MINUTES_MISSING | SCHEDULED_ARR_MINUTES_MISSING | CRS_ELAPSED_TIME_MISSING | DISTANCE_MISSING |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | 1.474579 | 1.791000 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 2 | 1.869174 | 2.269814 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 3 | 1.390023 | 2.019252 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 4 | 0.600832 | 0.641160 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 5 | 0.459906 | 0.560499 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+
+Fitur siklik hasil FE:
+
+| DATASET_ROW | MONTH_SIN | MONTH_COS | DAY_OF_WEEK_SIN | DAY_OF_WEEK_COS | SCHEDULED_DEP_MINUTES_SIN | SCHEDULED_DEP_MINUTES_COS | SCHEDULED_ARR_MINUTES_SIN | SCHEDULED_ARR_MINUTES_COS |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | 0.000000 | 1.000000 | 0.781832 | 0.623490 | 0.082808 | 0.996566 | 0.994056 | -0.108867 |
+| 2 | 0.000000 | 1.000000 | 0.781832 | 0.623490 | 0.173648 | 0.984808 | 0.833886 | -0.551937 |
+| 3 | 0.000000 | 1.000000 | 0.781832 | 0.623490 | 0.321439 | 0.946930 | 0.946930 | -0.321439 |
+| 4 | 0.000000 | 1.000000 | 0.781832 | 0.623490 | 0.636078 | 0.771625 | 0.996917 | 0.078459 |
+| 5 | 0.000000 | 1.000000 | 0.781832 | 0.623490 | 0.639439 | 0.768842 | 0.928810 | 0.370557 |
+
+#### Tail — 5 baris
+
+Identitas, target, dan hasil encoding kategori:
+
+| DATASET_ROW | SOURCE_ROW_NUMBER | FL_DATE | DELAYED_15 | One-hot aktif (=1) |
+| --- | --- | --- | --- | --- |
+| 1795769 | 87103 | 2021-12-31 | 1 | AIRLINE_CODE_UA; ORIGIN_ANC; DEST_DEN |
+| 1795770 | 1717827 | 2021-12-31 | 0 | AIRLINE_CODE_AA; ORIGIN_LAX; DEST_CLT |
+| 1795771 | 686799 | 2021-12-31 | 0 | AIRLINE_CODE_UA; ORIGIN_SEA; DEST_ORD |
+| 1795772 | 35853 | 2021-12-31 | 1 | AIRLINE_CODE_NK; ORIGIN_LAS; DEST_CLE |
+| 1795773 | 1081407 | 2021-12-31 | 1 | AIRLINE_CODE_UA; ORIGIN_LAX; DEST_IAH |
+
+Hasil scaling dan indikator missing:
+
+| DATASET_ROW | CRS_ELAPSED_TIME | DISTANCE | SCHEDULED_DEP_MINUTES_MISSING | SCHEDULED_ARR_MINUTES_MISSING | CRS_ELAPSED_TIME_MISSING | DISTANCE_MISSING |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1795769 | 2.334232 | 2.750345 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 1795770 | 1.897359 | 2.269814 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 1795771 | 1.291374 | 1.576478 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 1795772 | 1.333652 | 1.753244 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 1795773 | 0.713574 | 0.989544 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+
+Fitur siklik hasil FE:
+
+| DATASET_ROW | MONTH_SIN | MONTH_COS | DAY_OF_WEEK_SIN | DAY_OF_WEEK_COS | SCHEDULED_DEP_MINUTES_SIN | SCHEDULED_DEP_MINUTES_COS | SCHEDULED_ARR_MINUTES_SIN | SCHEDULED_ARR_MINUTES_COS |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1795769 | -0.500000 | 0.866025 | -0.433884 | -0.900969 | -0.043619 | 0.999048 | 0.969231 | -0.246153 |
+| 1795770 | -0.500000 | 0.866025 | -0.433884 | -0.900969 | -0.039260 | 0.999229 | 0.928810 | -0.370557 |
+| 1795771 | -0.500000 | 0.866025 | -0.433884 | -0.900969 | -0.021815 | 0.999762 | 0.998630 | 0.052336 |
+| 1795772 | -0.500000 | 0.866025 | -0.433884 | -0.900969 | -0.004363 | 0.999990 | 0.971342 | -0.237686 |
+| 1795773 | -0.500000 | 0.866025 | -0.433884 | -0.900969 | -0.004363 | 0.999990 | 0.977231 | 0.212178 |
+
+### Validation
+
+#### Head — 5 baris
+
+Identitas, target, dan hasil encoding kategori:
+
+| DATASET_ROW | SOURCE_ROW_NUMBER | FL_DATE | DELAYED_15 | One-hot aktif (=1) |
+| --- | --- | --- | --- | --- |
+| 1 | 909625 | 2022-01-01 | 0 | AIRLINE_CODE_F9; ORIGIN_LAS; DEST_CLE |
+| 2 | 1930992 | 2022-01-01 | 0 | AIRLINE_CODE_AA; ORIGIN_LAX; DEST_PHL |
+| 3 | 1096188 | 2022-01-01 | 1 | AIRLINE_CODE_F9; ORIGIN_DEN; DEST_MCO |
+| 4 | 1324334 | 2022-01-01 | 1 | AIRLINE_CODE_DL; ORIGIN_FAI; DEST_SEA |
+| 5 | 2077976 | 2022-01-01 | 1 | AIRLINE_CODE_AS; ORIGIN_FAI; DEST_SEA |
+
+Hasil scaling dan indikator missing:
+
+| DATASET_ROW | CRS_ELAPSED_TIME | DISTANCE | SCHEDULED_DEP_MINUTES_MISSING | SCHEDULED_ARR_MINUTES_MISSING | CRS_ELAPSED_TIME_MISSING | DISTANCE_MISSING |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | 1.390023 | 1.753244 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 2 | 2.094656 | 2.745196 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 3 | 1.065891 | 1.276146 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 4 | 1.122262 | 1.253836 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 5 | 1.009520 | 1.253836 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+
+Fitur siklik hasil FE:
+
+| DATASET_ROW | MONTH_SIN | MONTH_COS | DAY_OF_WEEK_SIN | DAY_OF_WEEK_COS | SCHEDULED_DEP_MINUTES_SIN | SCHEDULED_DEP_MINUTES_COS | SCHEDULED_ARR_MINUTES_SIN | SCHEDULED_ARR_MINUTES_COS |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | 0.000000 | 1.000000 | -0.974928 | -0.222521 | 0.021815 | 0.999762 | 0.960050 | -0.279829 |
+| 2 | 0.000000 | 1.000000 | -0.974928 | -0.222521 | 0.130526 | 0.991445 | 0.819152 | -0.573576 |
+| 3 | 0.000000 | 1.000000 | -0.974928 | -0.222521 | 0.229200 | 0.973379 | 0.991445 | -0.130526 |
+| 4 | 0.000000 | 1.000000 | -0.974928 | -0.222521 | 0.362438 | 0.932008 | 0.999657 | -0.026177 |
+| 5 | 0.000000 | 1.000000 | -0.974928 | -0.222521 | 0.370557 | 0.928810 | 1.000000 | 0.000000 |
+
+#### Tail — 5 baris
+
+Identitas, target, dan hasil encoding kategori:
+
+| DATASET_ROW | SOURCE_ROW_NUMBER | FL_DATE | DELAYED_15 | One-hot aktif (=1) |
+| --- | --- | --- | --- | --- |
+| 669408 | 2890217 | 2022-12-31 | 0 | AIRLINE_CODE_UA; ORIGIN_SFO; DEST_SAT |
+| 669409 | 197329 | 2022-12-31 | 0 | AIRLINE_CODE_AA; ORIGIN_LAX; DEST_MIA |
+| 669410 | 630497 | 2022-12-31 | 1 | AIRLINE_CODE_B6; ORIGIN_PHX; DEST_FLL |
+| 669411 | 86760 | 2022-12-31 | 1 | AIRLINE_CODE_UA; ORIGIN_SFO; DEST_MCI |
+| 669412 | 219514 | 2022-12-31 | 1 | AIRLINE_CODE_UA; ORIGIN_SFO; DEST_AUS |
+
+Hasil scaling dan indikator missing:
+
+| DATASET_ROW | CRS_ELAPSED_TIME | DISTANCE | SCHEDULED_DEP_MINUTES_MISSING | SCHEDULED_ARR_MINUTES_MISSING | CRS_ELAPSED_TIME_MISSING | DISTANCE_MISSING |
+| --- | --- | --- | --- | --- | --- | --- |
+| 669408 | 0.967242 | 1.166311 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 669409 | 2.193305 | 2.642226 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 669410 | 1.333652 | 2.007239 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 669411 | 0.924964 | 1.195486 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 669412 | 0.953149 | 1.204067 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+
+Fitur siklik hasil FE:
+
+| DATASET_ROW | MONTH_SIN | MONTH_COS | DAY_OF_WEEK_SIN | DAY_OF_WEEK_COS | SCHEDULED_DEP_MINUTES_SIN | SCHEDULED_DEP_MINUTES_COS | SCHEDULED_ARR_MINUTES_SIN | SCHEDULED_ARR_MINUTES_COS |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 669408 | -0.500000 | 0.866025 | -0.974928 | -0.222521 | -0.065403 | 0.997859 | 0.980785 | 0.195090 |
+| 669409 | -0.500000 | 0.866025 | -0.974928 | -0.222521 | -0.030539 | 0.999534 | 0.887011 | -0.461749 |
+| 669410 | -0.500000 | 0.866025 | -0.974928 | -0.222521 | -0.026177 | 0.999657 | 0.999048 | 0.043619 |
+| 669411 | -0.500000 | 0.866025 | -0.974928 | -0.222521 | -0.021815 | 0.999762 | 0.986286 | 0.165048 |
+| 669412 | -0.500000 | 0.866025 | -0.974928 | -0.222521 | -0.004363 | 0.999990 | 0.990268 | 0.139173 |
+
+### Test
+
+#### Head — 5 baris
+
+Identitas, target, dan hasil encoding kategori:
+
+| DATASET_ROW | SOURCE_ROW_NUMBER | FL_DATE | DELAYED_15 | One-hot aktif (=1) |
+| --- | --- | --- | --- | --- |
+| 1 | 217507 | 2023-01-01 | 0 | AIRLINE_CODE_UA; ORIGIN_PHX; DEST_ORD |
+| 2 | 2635363 | 2023-01-01 | 1 | AIRLINE_CODE_F9; ORIGIN_LAS; DEST_PHL |
+| 3 | 2548690 | 2023-01-01 | 0 | AIRLINE_CODE_WN; ORIGIN_LAX; DEST_MDW |
+| 4 | 1473188 | 2023-01-01 | 0 | AIRLINE_CODE_B6; ORIGIN_SYR; DEST_JFK |
+| 5 | 2070628 | 2023-01-01 | 0 | AIRLINE_CODE_B6; ORIGIN_BNA; DEST_FLL |
+
+Hasil scaling dan indikator missing:
+
+| DATASET_ROW | CRS_ELAPSED_TIME | DISTANCE | SCHEDULED_DEP_MINUTES_MISSING | SCHEDULED_ARR_MINUTES_MISSING | CRS_ELAPSED_TIME_MISSING | DISTANCE_MISSING |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | 0.896779 | 1.094231 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 2 | 1.883266 | 2.357340 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 3 | 1.460486 | 1.626247 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 4 | -0.752065 | -1.018387 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 5 | -0.019246 | -0.016137 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+
+Fitur siklik hasil FE:
+
+| DATASET_ROW | MONTH_SIN | MONTH_COS | DAY_OF_WEEK_SIN | DAY_OF_WEEK_COS | SCHEDULED_DEP_MINUTES_SIN | SCHEDULED_DEP_MINUTES_COS | SCHEDULED_ARR_MINUTES_SIN | SCHEDULED_ARR_MINUTES_COS |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | 0.000000 | 1.000000 | -0.781832 | 0.623490 | 0.254602 | 0.967046 | 0.987688 | 0.156434 |
+| 2 | 0.000000 | 1.000000 | -0.781832 | 0.623490 | 0.333807 | 0.942641 | 0.728371 | -0.685183 |
+| 3 | 0.000000 | 1.000000 | -0.781832 | 0.623490 | 0.965926 | 0.258819 | 0.237686 | -0.971342 |
+| 4 | 0.000000 | 1.000000 | -0.781832 | 0.623490 | 0.968148 | 0.250380 | 0.991445 | -0.130526 |
+| 5 | 0.000000 | 1.000000 | -0.781832 | 0.623490 | 0.971342 | 0.237686 | 0.806445 | -0.591310 |
+
+#### Tail — 5 baris
+
+Identitas, target, dan hasil encoding kategori:
+
+| DATASET_ROW | SOURCE_ROW_NUMBER | FL_DATE | DELAYED_15 | One-hot aktif (=1) |
+| --- | --- | --- | --- | --- |
+| 455671 | 352227 | 2023-08-31 | 0 | AIRLINE_CODE_AS; ORIGIN_PDX; DEST_BOS |
+| 455672 | 2470515 | 2023-08-31 | 0 | AIRLINE_CODE_DL; ORIGIN_BOI; DEST_ATL |
+| 455673 | 472065 | 2023-08-31 | 0 | AIRLINE_CODE_UA; ORIGIN_DEN; DEST_BWI |
+| 455674 | 982074 | 2023-08-31 | 0 | AIRLINE_CODE_DL; ORIGIN_SLC; DEST_MIA |
+| 455675 | 2695437 | 2023-08-31 | 0 | AIRLINE_CODE_B6; ORIGIN_SFO; DEST_JFK |
+
+Hasil scaling dan indikator missing:
+
+| DATASET_ROW | CRS_ELAPSED_TIME | DISTANCE | SCHEDULED_DEP_MINUTES_MISSING | SCHEDULED_ARR_MINUTES_MISSING | CRS_ELAPSED_TIME_MISSING | DISTANCE_MISSING |
+| --- | --- | --- | --- | --- | --- | --- |
+| 455671 | 2.601993 | 2.976881 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 455672 | 1.404115 | 1.777271 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 455673 | 1.009520 | 1.181756 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 455674 | 1.996008 | 2.206316 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| 455675 | 2.672457 | 3.060973 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+
+Fitur siklik hasil FE:
+
+| DATASET_ROW | MONTH_SIN | MONTH_COS | DAY_OF_WEEK_SIN | DAY_OF_WEEK_COS | SCHEDULED_DEP_MINUTES_SIN | SCHEDULED_DEP_MINUTES_COS | SCHEDULED_ARR_MINUTES_SIN | SCHEDULED_ARR_MINUTES_COS |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 455671 | -0.500000 | -0.866025 | 0.433884 | -0.900969 | -0.021815 | 0.999762 | 0.816642 | -0.577145 |
+| 455672 | -0.500000 | -0.866025 | 0.433884 | -0.900969 | -0.013090 | 0.999914 | 0.999962 | 0.008727 |
+| 455673 | -0.500000 | -0.866025 | 0.433884 | -0.900969 | -0.004363 | 0.999990 | 0.992546 | 0.121869 |
+| 455674 | -0.500000 | -0.866025 | 0.433884 | -0.900969 | -0.004363 | 0.999990 | 0.983255 | -0.182236 |
+| 455675 | -0.500000 | -0.866025 | 0.433884 | -0.900969 | -0.004363 | 0.999990 | 0.793353 | -0.608761 |
