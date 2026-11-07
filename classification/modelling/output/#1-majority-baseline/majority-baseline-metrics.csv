@@ -1,0 +1,5 @@
+﻿split,metric,value,defined
+validation,accuracy,0.7868532383644153,True
+validation,precision_class_1,0.0,False
+validation,recall_class_1,0.0,True
+validation,f1_class_1,0.0,True

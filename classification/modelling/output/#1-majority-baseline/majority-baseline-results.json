@@ -1,0 +1,71 @@
+{
+  "strategy": "most_frequent",
+  "majority_class_from_train": 0,
+  "tie_break_rule": "Choose class 0 if train class counts are equal",
+  "counts": {
+    "train": [
+      1511379,
+      284394
+    ],
+    "validation": [
+      526729,
+      142683
+    ]
+  },
+  "metrics_validation": {
+    "accuracy": 0.7868532383644153,
+    "precision_class_1": 0.0,
+    "recall_class_1": 0.0,
+    "f1_class_1": 0.0
+  },
+  "metric_defined": {
+    "accuracy": true,
+    "precision_class_1": false,
+    "recall_class_1": true,
+    "f1_class_1": true
+  },
+  "confusion_matrix": [
+    [
+      526729,
+      0
+    ],
+    [
+      142683,
+      0
+    ]
+  ],
+  "confusion_matrix_axes": {
+    "rows": "actual [0, 1]",
+    "columns": "predicted [0, 1]"
+  },
+  "confusion_counts": {
+    "tn": 526729,
+    "fp": 0,
+    "fn": 142683,
+    "tp": 0
+  },
+  "positive_class": 1,
+  "undefined_metric_policy": "display 0 and flag as undefined",
+  "roc_auc": null,
+  "pr_auc": null,
+  "ranking_metrics_note": "Not evaluated: this baseline outputs one constant hard class, without a discriminating risk score",
+  "created_utc": "2026-11-07T06:35:41.686875+00:00",
+  "input": {
+    "train": {
+      "path": "D:\\Coding\\#bigdata\\flight-delay-BI\\classification\\datasets\\model-ready\\y_train.npy",
+      "sha256": "f2322e9178b4856ed2dfdf76ce8b19d05e8e18b38d4e77d5412905f045876f96"
+    },
+    "validation": {
+      "path": "D:\\Coding\\#bigdata\\flight-delay-BI\\classification\\datasets\\model-ready\\y_validation.npy",
+      "sha256": "e2217fb8c387d4ec5ad02a7ad344ad4043bb4afc7744f880fd052e45a97f071a"
+    }
+  },
+  "evaluation_split": "validation",
+  "test_used": false,
+  "versions": {
+    "python": "3.11.9",
+    "numpy": "2.3.5",
+    "matplotlib": "3.10.8"
+  },
+  "elapsed_seconds": 0.263
+}
