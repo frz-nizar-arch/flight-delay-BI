@@ -1,0 +1,15 @@
+﻿model,split,metric,value,defined
+majority_baseline,validation,accuracy,0.7868532383644153,True
+majority_baseline,validation,precision_class_1,0.0,False
+majority_baseline,validation,recall_class_1,0.0,True
+majority_baseline,validation,f1_class_1,0.0,True
+majority_baseline,validation,roc_auc,,False
+majority_baseline,validation,pr_auc_trapezoid,,False
+majority_baseline,validation,average_precision,,False
+logistic_regression,validation,accuracy,0.7868472629710851,True
+logistic_regression,validation,precision_class_1,0.46296296296296297,True
+logistic_regression,validation,recall_class_1,0.0001752135853605545,True
+logistic_regression,validation,f1_class_1,0.0003502945977567134,True
+logistic_regression,validation,roc_auc,0.6616883348670516,True
+logistic_regression,validation,pr_auc_trapezoid,0.3420422194011447,True
+logistic_regression,validation,average_precision,0.34205353224732593,True

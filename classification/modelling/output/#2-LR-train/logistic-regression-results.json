@@ -1,0 +1,120 @@
+{
+  "created_utc": "2026-11-07T10:32:54.374155+00:00",
+  "model": "LogisticRegression",
+  "model_parameters": {
+    "solver": "lbfgs",
+    "C": 1.0,
+    "class_weight": null,
+    "max_iter": 1000,
+    "tol": 0.0001,
+    "random_state": 42
+  },
+  "threshold": 0.5,
+  "regularization": "L2",
+  "evaluation_split": "validation",
+  "test_used": false,
+  "preprocessing_refitted": false,
+  "converged": true,
+  "iterations": 76,
+  "fit_seconds": 7.722,
+  "warnings": [],
+  "data": {
+    "train": {
+      "rows": 1795773,
+      "features": 790,
+      "label_0": 1511379,
+      "label_1": 284394
+    },
+    "validation": {
+      "rows": 669412,
+      "features": 790,
+      "label_0": 526729,
+      "label_1": 142683
+    }
+  },
+  "metrics_validation": {
+    "accuracy": 0.7868472629710851,
+    "precision_class_1": 0.46296296296296297,
+    "recall_class_1": 0.0001752135853605545,
+    "f1_class_1": 0.0003502945977567134,
+    "roc_auc": 0.6616883348670516,
+    "pr_auc_trapezoid": 0.3420422194011447,
+    "average_precision": 0.34205353224732593
+  },
+  "metric_status": {
+    "precision_defined": true,
+    "recall_defined": true
+  },
+  "confusion_matrix": [
+    [
+      526700,
+      29
+    ],
+    [
+      142658,
+      25
+    ]
+  ],
+  "confusion_matrix_axes": {
+    "rows": "actual [0,1]",
+    "columns": "predicted [0,1]"
+  },
+  "majority_baseline": {
+    "majority_class_from_train": 0,
+    "metrics_validation": {
+      "accuracy": 0.7868532383644153,
+      "precision_class_1": 0.0,
+      "recall_class_1": 0.0,
+      "f1_class_1": 0.0,
+      "roc_auc": null,
+      "pr_auc_trapezoid": null,
+      "average_precision": null
+    },
+    "metric_status": {
+      "precision_defined": false,
+      "recall_defined": true
+    }
+  },
+  "intercept": -1.7216451334543048,
+  "input": {
+    "feature_contract": {
+      "path": "D:\\Coding\\#bigdata\\flight-delay-BI\\classification\\outputs\\feature_contract.json",
+      "size_bytes": 24171,
+      "mtime_ns": 1793596452949587800,
+      "sha256": "197c7ee9c2316bd973fe8986c124d1fc93e096a7292de06b4fa1853ce82ef964"
+    },
+    "X_train": {
+      "path": "D:\\Coding\\#bigdata\\flight-delay-BI\\classification\\datasets\\model-ready\\X_train.npz",
+      "size_bytes": 32409429,
+      "mtime_ns": 1793596427991779400,
+      "sha256": "12da52d5bd02b9a460b37c0c5299c2e406eac3135823538d78afc7bb4ebdb434"
+    },
+    "y_train": {
+      "path": "D:\\Coding\\#bigdata\\flight-delay-BI\\classification\\datasets\\model-ready\\y_train.npy",
+      "size_bytes": 1795901,
+      "mtime_ns": 1793596427995785400,
+      "sha256": "f2322e9178b4856ed2dfdf76ce8b19d05e8e18b38d4e77d5412905f045876f96"
+    },
+    "X_validation": {
+      "path": "D:\\Coding\\#bigdata\\flight-delay-BI\\classification\\datasets\\model-ready\\X_validation.npz",
+      "size_bytes": 12106487,
+      "mtime_ns": 1793596443093445200,
+      "sha256": "9cfbf3af8f841724dd7cb3b49b5314e5c5501d5bceada3efb719588e0f4dea39"
+    },
+    "y_validation": {
+      "path": "D:\\Coding\\#bigdata\\flight-delay-BI\\classification\\datasets\\model-ready\\y_validation.npy",
+      "size_bytes": 669540,
+      "mtime_ns": 1793596443094452300,
+      "sha256": "e2217fb8c387d4ec5ad02a7ad344ad4043bb4afc7744f880fd052e45a97f071a"
+    }
+  },
+  "versions": {
+    "python": "3.11.9",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "scikit-learn": "1.8.0",
+    "matplotlib": "3.10.8",
+    "joblib": "1.5.3"
+  },
+  "elapsed_seconds": 10.576
+}
